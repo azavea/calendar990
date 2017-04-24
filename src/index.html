@@ -68,8 +68,16 @@ function check(result) {
     }
 }
 
+var _started = false;
 function onSignIn() {
     $('#login').hide();
+
+    // GAPI calls the start function twice (in production only)
+    if (_started) {
+        return;
+    }
+    _started = true;
+
     $('#loading').show();
     $('#loading .message').text('Downloading events');
     gapi.client.load('calendar', 'v3').then(start);

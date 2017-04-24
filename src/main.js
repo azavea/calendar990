@@ -144,14 +144,7 @@ function renderError() {
     $('#container').append($el);
 }
 
-var _started = false;
 function start() {
-    // GAPI calls the start function twice (in production only)
-    if (_started) {
-        return;
-    }
-    _started = true;
-
     listAllEvents().then(function(rooms) {
         $('#loading').hide();
         for (var i = 0; i < rooms.length; i++) {
