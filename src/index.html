@@ -37,6 +37,7 @@
 <script type="text/javascript">
 var CLIENT_ID = '940622694716-0s10g23k0ga1b8vus8n762i2ei2scu5u.apps.googleusercontent.com';
 var SCOPES = ['https://www.googleapis.com/auth/calendar'];
+var _started = false;
 
 function init() {
     refreshAuthToken(true);
@@ -72,7 +73,12 @@ function onSignIn() {
     $('#login').hide();
     $('#loading').show();
     $('#loading .message').text('Downloading events');
-    gapi.client.load('calendar', 'v3').then(start);
+    gapi.client.load('calendar', 'v3').then(function() {
+        if (!started) {
+            start();
+            _started = true;
+        }
+    });
 }
 </script>
 <script src="https://apis.google.com/js/client:platform.js?onload=init"></script>
